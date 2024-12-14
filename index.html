@@ -1,0 +1,89 @@
+<html>
+<head>
+	<title>Viewer3D</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<link rel='stylesheet' type='text/css' href='style.css'/>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/daa834e337.js" crossorigin="anonymous"></script>
+	<style>
+	
+	body {
+		padding: 0;
+		margin: 0;
+		font-family: 'Open Sans', 'Oswald', Arial;
+		user-select: none;
+		background: #131313;
+	}
+	
+	.model-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 20px;
+		color: white;
+	}
+	
+	.model-title {
+		margin-top: 10px;
+		font-size: 24px;
+	}
+	
+	.scrollable {
+		overflow-y: auto;
+		height: 100vh;
+	}
+	
+	</style>
+</head>
+<body>
+	<div class='scrollable'>
+		<div class='model-container' id='model1'>
+			<div class='header-item' id='toggleModelBrowser1'>
+				<div class='header-icon'><i class='fa fa-sitemap'></i></div>
+				<div class='header-title'>Model 1</div>
+			</div>
+			<div id='viewerCanvasWrapper1' style="width: 100%; height: 400px;"></div>
+			<div class='model-title'>Description for Model 1</div>
+		</div>
+		<div class='model-container' id='model2'>
+			<div class='header-item' id='toggleModelBrowser2'>
+				<div class='header-icon'><i class='fa fa-sitemap'></i></div>
+				<div class='header-title'>Model 2</div>
+			</div>
+			<div id='viewerCanvasWrapper2' style="width: 100%; height: 400px;"></div>
+			<div class='model-title'>Description for Model 2</div>
+		</div>
+		<div class='model-container' id='model3'>
+			<div class='header-item' id='toggleModelBrowser3'>
+				<div class='header-icon'><i class='fa fa-sitemap'></i></div>
+				<div class='header-title'>Model 3</div>
+			</div>
+			<div id='viewerCanvasWrapper3' style="width: 100%; height: 400px;"></div>
+			<div class='model-title'>Description for Model 3</div>
+		</div>
+	</div>
+
+	<div id="downloadScreen" style="display: none;"></div>
+
+	<script src='vendor/three.min.js'></script>
+	<script src='vendor/OrbitControls.js'></script>
+	<script src='vendor/GLTFLoader.js'></script>
+	<script src='viewer.js'></script>
+	<script>
+	
+	window.onload = () => {
+		const models = [
+			{ id: 'viewerCanvasWrapper1', modelPath: 'models/glasses-5b.glb', title: 'Glasses' },
+			{ id: 'viewerCanvasWrapper2', modelPath: 'models/chip.glb', title: 'Chip' },
+			{ id: 'viewerCanvasWrapper3', modelPath: 'models/server.glb', title: 'Server' }
+		];
+
+		models.forEach(model => {
+			const viewer = new Viewer(model.id);
+			viewer.loadModel(model.modelPath);
+		});
+	}
+
+	</script>
+</body>
+</html>
