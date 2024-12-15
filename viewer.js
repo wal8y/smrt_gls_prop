@@ -68,21 +68,19 @@ class Viewer {
 		this.scene = new THREE.Scene();
 		this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 		this.renderer = new THREE.WebGLRenderer({ alpha: true });
-		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
 		document.getElementById(this.canvasId).appendChild(this.renderer.domElement);
 
 		this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
 		this.camera.position.z = 5;
 
-		// Add lighting to the scene
-		const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+		const ambientLight = new THREE.AmbientLight(0x404040);
 		this.scene.add(ambientLight);
 
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White directional light
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 		directionalLight.position.set(5, 5, 5).normalize();
 		this.scene.add(directionalLight);
 
-		// Set up download functionality
 		const downloadScreen = document.getElementById('downloadScreen');
 			downloadScreen.onclick = () => {
 			const canvas = this.renderer.domElement;
@@ -101,12 +99,10 @@ class Viewer {
 		loader.load(modelPath, (gltf) => {
 			const object = gltf.scene;
 
-			// Calculate the bounding box of the loaded model
 			const box = new THREE.Box3().setFromObject(object);
 			const size = box.getSize(new THREE.Vector3()).length();
-			const maxSize = 2; // Define a maximum size for the models
+			const maxSize = 2;
 
-			// Calculate the scale factor to fit the model within the max size
 			const scaleFactor = maxSize / size;
 
 			// Scale the loaded model
@@ -119,9 +115,8 @@ class Viewer {
 			console.log("Model loaded:", object);
 			console.log("Model size:", size, "Scale factor:", scaleFactor);
 
-			// Center the camera on the loaded model
 			const center = box.getCenter(new THREE.Vector3());
-			this.camera.position.set(center.x, center.y, center.z + 2); // Adjust the camera position
+			this.camera.position.set(center.x+1, center.y+1, center.z + 1);
 			this.camera.lookAt(center);
 		}, undefined, function (error) {
 			console.error("Error loading model:", error);

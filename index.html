@@ -6,28 +6,88 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/daa834e337.js" crossorigin="anonymous"></script>
 	<style>
-	
-	body {
-		padding: 0;
-		margin: 0;
-		font-family: 'Open Sans', 'Oswald', Arial;
-		user-select: none;
-		background: #131313;
-	}
-	
-	.model-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		margin: 20px;
-		color: white;
-	}
-	
-	.model-title {
-		margin-top: 10px;
-		font-size: 24px;
-	}
-	
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Open Sans', Arial, sans-serif;
+			background: #131313;
+			color: white;
+			cursor: url('cursor.gif'),auto;
+			overflow-x: hidden;
+		}
+		
+		.container {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			overflow-x: hidden;
+		}
+		
+		.model-section {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 20px 0;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+		
+		.model-canvas {
+			flex: 1;
+			max-width: 50%;
+			cursor: url('cursor.gif');
+			height: 400px;
+			transition: transform 0.3s ease-in-out;
+		}
+		
+		.model-description {
+			flex: 1;
+			background: #131313;
+			max-width: 50%;
+			padding: 20px;
+			text-align: left;
+			box-sizing: border-box;
+		}
+		
+		.model-description h2 {
+			margin: 0 0 10px;
+		}
+		
+		.model-description p {
+			margin: 0;
+			font-size: 1em;
+			color: #ccc;
+		}
+		
+		.model-section:nth-child(even) {
+			flex-direction: row-reverse;
+		}
+		
+		@media only screen and (max-width: 768px) {
+			.model-canvas,
+			.model-description {
+				max-width: 100%;
+			}
+			.model-section {
+				flex-direction: column;
+			}
+		}
+		
+		@keyframes spin {
+			0% {
+				transform: rotateY(0deg);
+			}
+			100% {
+				transform: rotateY(360deg);
+			}
+		}
+		
+		.model-canvas.scroll-spin {
+			animation: spin 5s linear infinite;
+		}
+
 	.scrollable {
 		overflow-y: auto;
 		height: 100vh;
@@ -36,44 +96,56 @@
 	</style>
 </head>
 <body>
-	<div class='scrollable'>
-		<div class='model-container' id='model1'>
-			<div class='header-item' id='toggleModelBrowser1'>
-				<div class='header-icon'><i class='fa fa-sitemap'></i></div>
-				<div class='header-title'>Model 1</div>
+	<div style="padding: 2%; text-align: center;">
+		<h2>This is the Abstract of a SmartGlasses that's Powered by AI</h2>
+	</div>
+	<div>
+		<div class="model-section">
+			<div id="viewerCanvasWrapper1" class="model-canvas"></div>
+			<div class="model-description">
+				<h2>The Glasses</h2>
+				<p>A pair of glasses that are used to see the world. take frames using the camera. and show a text on the screen. the text and the frames are processed by the chip.</p>
 			</div>
-			<div id='viewerCanvasWrapper1' style="width: 100%; height: 400px;"></div>
-			<div class='model-title'>Description for Model 1</div>
 		</div>
-		<div class='model-container' id='model2'>
-			<div class='header-item' id='toggleModelBrowser2'>
-				<div class='header-icon'><i class='fa fa-sitemap'></i></div>
-				<div class='header-title'>Model 2</div>
+		<div class="model-section">
+			<div id="viewerCanvasWrapper2" class="model-canvas"></div>
+			<div class="model-description">
+				<h2>The Chip</h2>
+				<p>The chip is a Raspberry Pi Pico W. it is used to process the frames sent from the glasses and send them in POST request to the server</p>
+				<p> and it will get the result as a response from the server then send it to be represented on the glasses.</p>
 			</div>
-			<div id='viewerCanvasWrapper2' style="width: 100%; height: 400px;"></div>
-			<div class='model-title'>Description for Model 2</div>
 		</div>
-		<div class='model-container' id='model3'>
-			<div class='header-item' id='toggleModelBrowser3'>
-				<div class='header-icon'><i class='fa fa-sitemap'></i></div>
-				<div class='header-title'>Model 3</div>
+		<div class="model-section">
+			<div id="viewerCanvasWrapper3" class="model-canvas"></div>
+			<div class="model-description">
+				<h2>The Server</h2>
+				<p>The server is a Ubuntu_22 Backend.</p>
+				<p>It has One API end that recives the images and process them using Local AI models in Python and then it sends the text of the processed images as a respond</p>
 			</div>
-			<div id='viewerCanvasWrapper3' style="width: 100%; height: 400px;"></div>
-			<div class='model-title'>Description for Model 3</div>
 		</div>
 	</div>
 
 	<div id="downloadScreen" style="display: none;"></div>
-
+	<div style="padding-top: 10%; text-align: center; padding-bottom: 10%;">
+		<h2>Made by:</h2>
+		<h3>Waleed Najim</h3>
+		<h3>Abdulrahman Olabi</h3>
+		<h3>Najdat Malki</h3>
+		<h3 style="padding-bottom: 3%;">MohammedNour Damlahi</h3>
+		<h4>This will be the project we Are working.</h4>
+		<h4>The Idea is for us to learn AI, IOT, ImageProcessing, CloudComputing and WebSockers on a deeper level.</h4>
+		<h4>Also to Help our Community of Developers in this Era of Innovation</h4>
+	</div>
 	<script src='vendor/three.min.js'></script>
 	<script src='vendor/OrbitControls.js'></script>
 	<script src='vendor/GLTFLoader.js'></script>
 	<script src='viewer.js'></script>
 	<script>
 	
+	
 	window.onload = () => {
 		const models = [
-			{ id: 'viewerCanvasWrapper1', modelPath: 'models/glasses-5b.glb', title: 'Glasses' },
+			{ id: 'viewerCanvasWrapper1', modelPath: 'models/glasses.glb', title: 'Glasses' },
 			{ id: 'viewerCanvasWrapper2', modelPath: 'models/chip.glb', title: 'Chip' },
 			{ id: 'viewerCanvasWrapper3', modelPath: 'models/server.glb', title: 'Server' }
 		];
